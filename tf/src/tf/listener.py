@@ -25,6 +25,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+from yaml.loader import Loader
 import rospy
 import numpy
 import yaml
@@ -94,7 +95,7 @@ class Transformer(object):
 
     def getFrameStrings(self):
         """ Not a recommended API, only here for backwards compatibility """
-        data = yaml.load(self._buffer.all_frames_as_yaml()) or {}
+        data = yaml.load(self._buffer.all_frames_as_yaml(), Loader=Loader) or {}
         return [p for p, _ in data.items()]
 
     def getLatestCommonTime(self, source_frame, dest_frame):
